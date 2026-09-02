@@ -138,7 +138,7 @@ INSERT SCREENSHOT of home page bubble charT
 
 ## 3. Customer Segment Summary
 
-This query summarizes each customer segment and was used for both the **Returning Customer Rate by Segment** chart and the **Customer Segment Profile** PivotTable.
+This query summarizes each customer segment and was used for both the **Returning Customer Rate by Segment** column chart and the **Customer Segment** PivotTable.
 
 ```sql
 WITH historical_activity AS (
