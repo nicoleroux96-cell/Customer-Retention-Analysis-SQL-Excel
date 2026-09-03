@@ -56,7 +56,8 @@ LEFT JOIN future_activity f
 ![Resulting Output of the above SQL query](Headline_KPIs_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page KPIs
+
+![Excel visual resulting from the above SQL query](Headline_KPIs_dashboard_result.png)
 
 ---
 
@@ -130,10 +131,11 @@ ORDER BY
 
 ### Query Output
 
-![Customer Retention Segmentation Output](02_segmentation_bubble_chart.png)
+![Resulting Output of the above SQL query](Customer_Segments_by_Order_Frequency_and_Recency_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page bubble charT
+
+![Excel visual resulting from the above SQL query](Customer_Segments_by_Order_Frequency_and_Recency_dashboard_result.png)
 
 ---
 
@@ -221,7 +223,10 @@ ORDER BY
 
 ### Query Output
 
-![Customer Segment Summary Output](03_customer_segment_summary.png)
+![Resulting Output of the above SQL query](Customer_Segmentation_Breakdown_Table_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page column chart and bottom table 
+
+![Excel visual resulting from the above SQL query](Returning_Customer_Rate_by_Segment_dashboard_result.png)
+
+![Excel visual resulting from the above SQL query](Customer_Segmentation_Breakdown_Table_dashbaord_result.png)
