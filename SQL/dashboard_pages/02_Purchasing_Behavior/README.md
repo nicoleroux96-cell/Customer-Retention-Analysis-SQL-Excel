@@ -279,6 +279,7 @@ GROUP BY
 ORDER BY
     spending_quartile;
 ```
+### Query Output
 INSERT QUERY OUTPUT 
 DO NOT INSERT ANY EXCEL CHART, DO AT END
 
