@@ -6,9 +6,11 @@ The analysis considers four digital behaviors recorded in the clickstream data: 
 
 ---
 
-## 1. Headline KPIs
+## 1. Returning Customer Rate by Digital Engagement Level (Line Chart)
 
-This query calculates the five headline customer retention metrics displayed in the KPIs at the top of the page.
+This query measures each customer's overall historical digital engagement by counting their clickstream events before the cutoff date. Customers are then grouped into four engagement levels based on their total number of digital interactions: **1–4 Events, 5–6 Events, 7–8 Events, and 9+ Events**.
+
+Each engagement group is compared with future purchasing activity to calculate the number of customers who returned after the cutoff and the resulting Returning Customer Rate.
 
 ```sql
 WITH historical_customers AS (
@@ -19,33 +21,73 @@ WITH historical_customers AS (
       AND customer_id IS NOT NULL
 ),
 
+historical_engagement AS (
+    SELECT
+        c.customer_id,
+        COUNT(*) AS historical_events
+    FROM clean.clickstream c
+    INNER JOIN historical_customers h
+        ON c.customer_id = h.customer_id
+    WHERE c.event_date < '2025-12-01'
+    GROUP BY c.customer_id
+),
+
 future_activity AS (
     SELECT
         customer_id,
-        COUNT(*) AS future_orders,
-        SUM(order_amount) AS future_revenue
+        COUNT(*) AS future_orders
     FROM clean.orders
     WHERE order_date >= '2025-12-01'
       AND customer_id IS NOT NULL
     GROUP BY customer_id
+),
+
+customer_metrics AS (
+    SELECT
+        e.customer_id,
+        e.historical_events,
+        CASE
+            WHEN e.historical_events BETWEEN 1 AND 4
+                THEN '1-4 Events'
+            WHEN e.historical_events BETWEEN 5 AND 6
+                THEN '5-6 Events'
+            WHEN e.historical_events BETWEEN 7 AND 8
+                THEN '7-8 Events'
+            ELSE '9+ Events'
+        END AS engagement_group,
+        CASE
+            WHEN COALESCE(f.future_orders, 0) > 0 THEN 1
+            ELSE 0
+        END AS future_repeat_customer
+    FROM historical_engagement e
+    LEFT JOIN future_activity f
+        ON e.customer_id = f.customer_id
 )
 
 SELECT
-    COUNT(*) AS historical_customers_analyzed,
-    COUNT(*) FILTER (
-        WHERE COALESCE(f.future_orders, 0) > 0) AS no_of_returning_customers_after_cutoff_date
-,
-    ROUND(100.0 *
-        COUNT(*) FILTER (
-            WHERE COALESCE(f.future_orders, 0) > 0) / COUNT(*), 2)
-                AS customer_return_rate,
-    ROUND(AVG(COALESCE(f.future_revenue, 0)),2)
-        AS avg_future_revenue_per_customer,
-    ROUND(AVG(f.future_revenue) FILTER (WHERE COALESCE(f.future_orders, 0) > 0), 2)
-        AS avg_future_revenue_per_returning_customer
-FROM historical_customers h
-LEFT JOIN future_activity f
-    ON h.customer_id = f.customer_id;
+    engagement_group,
+    COUNT(*) AS historical_customers,
+    SUM(future_repeat_customer) AS future_repeat_customers,
+    ROUND(
+        100.0 * SUM(future_repeat_customer) / COUNT(*),
+        2
+    ) AS returning_customer_rate
+FROM customer_metrics
+GROUP BY
+    engagement_group,
+    CASE engagement_group
+        WHEN '1-4 Events' THEN 1
+        WHEN '5-6 Events' THEN 2
+        WHEN '7-8 Events' THEN 3
+        WHEN '9+ Events' THEN 4
+    END
+ORDER BY
+    CASE engagement_group
+        WHEN '1-4 Events' THEN 1
+        WHEN '5-6 Events' THEN 2
+        WHEN '7-8 Events' THEN 3
+        WHEN '9+ Events' THEN 4
+    END;
 ```
 
 ### Query Output
@@ -53,75 +95,136 @@ LEFT JOIN future_activity f
 ![Headline Retention KPIs Output](01_headline_kpis.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page KPIs
+INSERT SCREENSHOT of DIGITAL ENGAGE LINE CHART 
 
 ---
 
-## 2. Customer Retention Segmentation Bubble Chart
+## 2. Difference in Returning Customer Rate by Digital Behavior (Bar Chart)
 
-This query segments customers into four retention groups based on historical purchase frequency and recency. Customers are then grouped into 10-day recency bins, with each output row representing a combination of customer segment, recency range, and historical order count. The recency-bin midpoint is used as the bubble chart's X-coordinate, historical order count as the Y-coordinate, and customer count determines the bubble size. The customer segment determines the series shown in the chart.
+This query evaluates the four digital behaviors individually. For each customer, it identifies whether **Page View, Search, Add to Cart, and Login** were performed at least once during the historical period.
+
+For each behavior, customers are separated into **Performed** and **Not Performed** groups. The query calculates the Returning Customer Rate for both groups and the difference between them in percentage points, allowing the retention association of each digital behavior to be compared.
 
 ```sql
-WITH historical_activity AS (
-    SELECT
-        customer_id,
-        COUNT(*) AS historical_orders,
-        DATE '2025-12-01' - MAX(order_date) AS days_since_last_order
+WITH historical_customers AS (
+    SELECT DISTINCT customer_id
     FROM clean.orders
     WHERE order_date < '2025-12-01'
       AND customer_id IS NOT NULL
-    GROUP BY customer_id
 ),
 
-customer_segments AS (
-    SELECT
-        customer_id,
-        historical_orders,
-        days_since_last_order,
+historical_behaviors AS (
+    SELECT h.customer_id,
+        MAX(CASE WHEN c.event_type = 'page_view'
+                 THEN 1 ELSE 0 END)
+                    AS had_page_view,
+        MAX(CASE WHEN c.event_type = 'search'
+                 THEN 1 ELSE 0 END)
+                    AS had_search,
+        MAX(CASE WHEN c.event_type = 'add_to_cart'
+                 THEN 1 ELSE 0 END)
+                    AS had_add_to_cart,
+        MAX(CASE WHEN c.event_type = 'login'
+                 THEN 1 ELSE 0 END)
+                    AS had_login
+    FROM historical_customers h
+    INNER JOIN clean.clickstream c
+        ON h.customer_id = c.customer_id
+       AND c.event_date < '2025-12-01'
+    GROUP BY h.customer_id
+),
+
+future_customers AS (
+    SELECT DISTINCT customer_id
+    FROM clean.orders
+    WHERE order_date >= '2025-12-01'
+      AND customer_id IS NOT NULL
+),
+
+customer_metrics AS (
+    SELECT b.customer_id,
+        b.had_page_view,
+        b.had_search,
+        b.had_add_to_cart,
+        b.had_login,
         CASE
-            WHEN historical_orders >= 7
-                 AND days_since_last_order <= 90
-                THEN 'Loyal & Active'
-            WHEN historical_orders >= 7
-                 AND days_since_last_order > 90
-                THEN 'Loyal but Cooling'
-            WHEN historical_orders <= 6
-                 AND days_since_last_order <= 90
-                THEN 'Developing'
-            ELSE 'Low Engagement/Lapsed'
-        END AS customer_segment
-    FROM historical_activity
+            WHEN f.customer_id IS NOT NULL THEN 1
+            ELSE 0
+        END AS future_repeat_customer
+    FROM historical_behaviors b
+    LEFT JOIN future_customers f
+        ON b.customer_id = f.customer_id
 ),
 
-binned_customers AS (
-    SELECT
-        customer_segment,
-        historical_orders,
-        (((days_since_last_order - 1) / 10) * 10 + 1) AS recency_bin_start
-    FROM customer_segments
+behavior_results AS (
+    SELECT 'Page View' AS behavior,
+        1 AS behavior_order,
+        had_page_view AS performed_behavior,
+        COUNT(*) AS customers,
+        SUM(future_repeat_customer) AS repeat_customers
+    FROM customer_metrics
+    GROUP BY had_page_view
+
+    UNION ALL
+
+    SELECT 'Search',
+        2,
+        had_search,
+        COUNT(*),
+        SUM(future_repeat_customer)
+    FROM customer_metrics
+    GROUP BY had_search
+
+    UNION ALL
+
+    SELECT 'Add to Cart',
+        3,
+        had_add_to_cart,
+        COUNT(*),
+        SUM(future_repeat_customer)
+    FROM customer_metrics
+    GROUP BY had_add_to_cart
+
+    UNION ALL
+
+    SELECT 'Login',
+        4,
+        had_login,
+        COUNT(*),
+        SUM(future_repeat_customer)
+    FROM customer_metrics
+    GROUP BY had_login
+),
+
+behavior_rates AS (
+    SELECT behavior,
+        behavior_order,
+        MAX(customers) FILTER (WHERE performed_behavior = 1)
+            AS customers_performed,
+        MAX(customers) FILTER (WHERE performed_behavior = 0)
+            AS customers_not_performed,
+        MAX(100.0 * repeat_customers / customers)
+        FILTER (WHERE performed_behavior = 1)
+            AS repeat_rate_performed,
+        MAX(100.0 * repeat_customers / customers)
+        FILTER (WHERE performed_behavior = 0)
+            AS repeat_rate_not_performed
+    FROM behavior_results
+    GROUP BY behavior,
+        behavior_order
 )
 
-SELECT
-    customer_segment,
-    recency_bin_start,
-    recency_bin_start + 9 AS recency_bin_end,
-    recency_bin_start + 4.5 AS recency_bin_midpoint,
-    historical_orders,
-    COUNT(*) AS customer_count
-FROM binned_customers
-GROUP BY
-    customer_segment,
-    recency_bin_start,
-    historical_orders
-ORDER BY
-    CASE customer_segment
-        WHEN 'Loyal & Active' THEN 1
-        WHEN 'Loyal but Cooling' THEN 2
-        WHEN 'Developing' THEN 3
-        WHEN 'Low Engagement/Lapsed' THEN 4
-    END,
-    recency_bin_start,
-    historical_orders;
+SELECT behavior,
+    customers_performed,
+    customers_not_performed,
+    ROUND(repeat_rate_performed, 2)
+        AS returning_customer_rate_performed,
+    ROUND(repeat_rate_not_performed, 2)
+        AS returning_customer_rate_not_performed,
+    ROUND(repeat_rate_performed - repeat_rate_not_performed, 2)
+        AS returning_customer_rate_difference_percentage_points
+FROM behavior_rates
+ORDER BY behavior_order;
 ```
 
 ### Query Output
@@ -129,31 +232,55 @@ ORDER BY
 ![Customer Retention Segmentation Output](02_segmentation_bubble_chart.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page bubble charT
+INSERT SCREENSHOT of digital engagement page bar chart 
 
 ---
 
-## 3. Customer Segment Summary
+## 3. Average Future Revenue by Digital Behavior (Dumbbell Chart)
 
-This query summarizes each customer segment and was used for both the **Returning Customer Rate by Segment** chart and the **Customer Segment Profile** PivotTable.
+This query evaluates the same four historical digital behaviors from a future customer value perspective. Customers are again separated according to whether they **Performed** or **Did Not Perform** each behavior before the cutoff date.
+
+For each behavior, the query calculates average future revenue for both customer groups, along with the absolute and percentage difference in future revenue. This allows the relationship between individual digital behaviors and future revenue to be compared separately from their relationship with customer retention.
 
 ```sql
-WITH historical_activity AS (
-    SELECT
-        customer_id,
-        COUNT(*) AS historical_orders,
-        SUM(order_amount) AS historical_revenue,
-        DATE '2025-12-01' - MAX(order_date) AS days_since_last_order
+WITH historical_customers AS (
+    SELECT DISTINCT customer_id
     FROM clean.orders
     WHERE order_date < '2025-12-01'
       AND customer_id IS NOT NULL
-    GROUP BY customer_id
+),
+
+historical_behaviors AS (
+    SELECT h.customer_id,
+        MAX(CASE
+                WHEN c.event_type = 'page_view' THEN 1
+                ELSE 0
+            END)
+                AS had_page_view,
+        MAX(CASE
+                WHEN c.event_type = 'search' THEN 1
+                ELSE 0
+            END)
+                AS had_search,
+        MAX(CASE
+                WHEN c.event_type = 'add_to_cart' THEN 1
+                ELSE 0
+            END)
+                AS had_add_to_cart,
+        MAX(CASE
+                WHEN c.event_type = 'login' THEN 1
+                ELSE 0
+            END)
+                AS had_login
+    FROM historical_customers h
+    INNER JOIN clean.clickstream c
+        ON h.customer_id = c.customer_id
+       AND c.event_date < '2025-12-01'
+    GROUP BY h.customer_id
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
-        COUNT(*) AS future_orders,
+    SELECT customer_id,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
     WHERE order_date >= '2025-12-01'
@@ -161,58 +288,92 @@ future_activity AS (
     GROUP BY customer_id
 ),
 
-customer_segments AS (
-    SELECT
-        h.customer_id,
-        h.historical_orders,
-        h.historical_revenue,
-        h.days_since_last_order,
-        CASE
-            WHEN h.historical_orders >= 7
-                 AND h.days_since_last_order <= 90
-                THEN 'Loyal & Active'
-            WHEN h.historical_orders >= 7
-                 AND h.days_since_last_order > 90
-                THEN 'Loyal but Cooling'
-            WHEN h.historical_orders <= 6
-                 AND h.days_since_last_order <= 90
-                THEN 'Developing'
-            ELSE 'Low Engagement/Lapsed'
-        END AS customer_segment,
-        CASE
-            WHEN COALESCE(f.future_orders, 0) > 0 THEN 1
-            ELSE 0
-        END AS future_repeat_customer,
-        COALESCE(f.future_revenue, 0) AS future_revenue
-    FROM historical_activity h
+customer_metrics AS (
+    SELECT b.customer_id,
+        b.had_page_view,
+        b.had_search,
+        b.had_add_to_cart,
+        b.had_login,
+        COALESCE(f.future_revenue, 0)
+            AS future_revenue
+    FROM historical_behaviors b
     LEFT JOIN future_activity f
-        ON h.customer_id = f.customer_id
+        ON b.customer_id = f.customer_id
+),
+
+behavior_results AS (
+    SELECT 'Page View' AS behavior,
+        1 AS behavior_order,
+        had_page_view AS performed_behavior,
+        COUNT(*) AS customers,
+        AVG(future_revenue) AS avg_future_revenue
+    FROM customer_metrics
+    GROUP BY had_page_view
+
+    UNION ALL
+
+    SELECT 'Search',
+        2,
+        had_search,
+        COUNT(*),
+        AVG(future_revenue)
+    FROM customer_metrics
+    GROUP BY had_search
+
+    UNION ALL
+
+    SELECT 'Add to Cart',
+        3,
+        had_add_to_cart,
+        COUNT(*),
+        AVG(future_revenue)
+    FROM customer_metrics
+    GROUP BY had_add_to_cart
+
+    UNION ALL
+
+    SELECT 'Login',
+        4,
+        had_login,
+        COUNT(*),
+        AVG(future_revenue)
+    FROM customer_metrics
+    GROUP BY had_login
+),
+
+behavior_values AS (
+    SELECT behavior,
+        behavior_order,
+        MAX(customers) FILTER (WHERE performed_behavior = 1)
+            AS customers_performed,
+        MAX(customers) FILTER (WHERE performed_behavior = 0)
+            AS customers_not_performed,
+        MAX(avg_future_revenue) FILTER (WHERE performed_behavior = 1)
+            AS avg_revenue_performed,
+        MAX(avg_future_revenue) FILTER (WHERE performed_behavior = 0)
+            AS avg_revenue_not_performed
+    FROM behavior_results
+    GROUP BY behavior,
+        behavior_order
 )
 
-SELECT
-    customer_segment,
-    COUNT(*) AS customers,
-    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS historical_customer_share,
+SELECT behavior,
+    customers_performed,
+    customers_not_performed,
+    ROUND(avg_revenue_performed, 2)
+        AS avg_future_revenue_performed,
+    ROUND(avg_revenue_not_performed, 2)
+        AS avg_future_revenue_not_performed,
+    ROUND(avg_revenue_performed - avg_revenue_not_performed, 2)
+        AS future_revenue_difference,
     ROUND(
-        AVG(historical_orders), 2) 
-			AS avg_historical_orders,
-    ROUND(AVG(historical_revenue), 2) 
-		AS avg_historical_revenue,
-    ROUND(AVG(days_since_last_order), 1) 
-		AS Avg_Days_Between_Last_Historical_Order_and_Cutoff_Date,
-    SUM(future_repeat_customer) 
-		AS future_repeat_customers,
-    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2) 
-		AS returning_customer_rate
-FROM customer_segments
-GROUP BY customer_segment
-ORDER BY
-    CASE customer_segment
-        WHEN 'Loyal & Active' THEN 1
-        WHEN 'Loyal but Cooling' THEN 2
-        WHEN 'Developing' THEN 3
-        WHEN 'Low Engagement/Lapsed' THEN 4
-    END;
+        100.0 *
+        (avg_revenue_performed - avg_revenue_not_performed)
+        / NULLIF(avg_revenue_not_performed, 0),
+        2
+    ) AS future_revenue_difference_pct
+FROM behavior_values
+ORDER BY behavior_order;
 ```
 
 ### Query Output
@@ -220,4 +381,4 @@ ORDER BY
 ![Customer Segment Summary Output](03_customer_segment_summary.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of home page column chart and bottom table 
+INSERT SCREENSHOT of DIGITAL ENGAGE PAGE DUMBBELL CHART 
