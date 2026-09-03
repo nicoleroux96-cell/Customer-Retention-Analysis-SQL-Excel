@@ -53,7 +53,7 @@ LEFT JOIN future_activity f
 
 ### Query Output
 
-![Headline Retention KPIs Output](01_headline_kpis.png)
+![Resulting Output of the above SQL query](Headline_KPIs_query_output.png)
 
 ### Dashboard Result
 INSERT SCREENSHOT of home page KPIs
