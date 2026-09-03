@@ -53,11 +53,11 @@ LEFT JOIN future_activity f
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Headline_KPIs_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Headline_KPIs_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](Headline_KPIs_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Headline_KPIs_dashboard_result.png)
 
 ---
 
@@ -131,11 +131,11 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Customer_Segments_by_Order_Frequency_and_Recency_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Customer_Segments_by_Order_Frequency_and_Recency_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](Customer_Segments_by_Order_Frequency_and_Recency_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Customer_Segments_by_Order_Frequency_and_Recency_dashboard_result.png)
 
 ---
 
@@ -223,10 +223,10 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Customer_Segmentation_Breakdown_Table_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Customer_Segmentation_Breakdown_Table_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](Returning_Customer_Rate_by_Segment_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Segment_dashboard_result.png)
 
-![Excel visual resulting from the above SQL query](Customer_Segmentation_Breakdown_Table_dashbaord_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Customer_Segmentation_Breakdown_Table_dashbaord_result.png)
