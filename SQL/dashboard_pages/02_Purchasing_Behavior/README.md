@@ -93,11 +93,11 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Returning_Customer_Rate_by_Order_Frequency_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Order_Frequency_query_output.png)
 
 
 ### Dashboard Result
-![Excel visual resulting from the above SQL query](Returning_Customer_Rate_by_Order_Frequency_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Order_Frequency_dashboard_result.png)
 
 ---
 
@@ -189,10 +189,10 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Returning_Customer_Rate_by_Recency_of_Last_Order_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Recency_of_Last_Order_query_output.png)
 
 ### Dashboard Result
-![Excel visual resulting from the above SQL query](Returning_Customer_Rate_by_Recency_of_Last_Order_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Recency_of_Last_Order_dashboard_result.png)
 
 ---
 
@@ -281,7 +281,7 @@ ORDER BY
     spending_quartile;
 ```
 
-![Resulting Output of the above SQL query](Returning_Customer_Rate_by_Total_Spending_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Total_Spending_query_output.png)
 
 
 ### 3.2 Historical Average Order Value
@@ -363,9 +363,9 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](Returning_Customer_Rate_by_Avg_Order_Value_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Avg_Order_Value_query_output.png)
 
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](Returning_Customer_Rate_by_AOV_and_Total_Spending_dashboard_result.png)
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_AOV_and_Total_Spending_dashboard_result.png)
