@@ -60,7 +60,8 @@ INSERT SCREENSHOT of home page KPIs
 
 ---
 
-## 2. Customer Retention Segmentation (Bubble Chart)
+## 2. Customer Segments by Order Frequency and Recency (Bubble Chart)
+
 
 This query segments customers into four retention groups based on historical purchase frequency and recency. Customers are then grouped into 10-day recency bins, with each output row representing a combination of customer segment, recency range, and historical order count. The recency-bin midpoint is used as the bubble chart's X-coordinate, historical order count as the Y-coordinate, and customer count determines the bubble size. The customer segment determines the series shown in the chart.
 
@@ -136,9 +137,9 @@ INSERT SCREENSHOT of home page bubble charT
 
 ---
 
-## 3. Customer Segment Summary
+## 3. Returning Customer Rate by Segment (Column Chart) and Customer Segmentation PivotTable
 
-This query summarizes each customer segment and was used for both the **Returning Customer Rate by Segment** column chart and the **Customer Segment** PivotTable.
+This query summarizes each customer segment and was used for both the above mentioned column chart and PivotTable.
 
 ```sql
 WITH historical_activity AS (
