@@ -195,7 +195,7 @@ INSERT SCREENSHOT of purchase page fat column charT
 
 ---
 
-## 3. Returning Customer Rate by Total Spending and Average Order Value (Stacked Bar Chart)
+## 3. Returning Customer Rate by Total Spending and Average Order Value (Double Bar Chart)
 
 The final Purchasing Behavior visual compares retention across two measures of historical customer value: **Total Spending** and **Average Order Value (AOV)**.
 
@@ -203,7 +203,7 @@ Because the two measures are calculated independently, separate SQL queries were
 
 The outputs of both queries are combined in Excel to compare their Returning Customer Rates within a single dashboard visual.
 
-### 3.1 Historical Total Spending
+### 3.1 Historical Spending
 
 This query calculates each customer's total order revenue during the historical period and ranks customers into four spending quartiles. It then measures future retention and revenue for each historical spending tier.
 
@@ -364,4 +364,4 @@ ORDER BY
 ![Customer Segment Summary Output](03_customer_segment_summary.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of purchase page Stacked Bar Chart
+INSERT SCREENSHOT of purchase page Double Bar Chart
