@@ -7,7 +7,7 @@ The analysis focuses on three aspects of the historical support experience:
 - Support Request frequency
 - Average Support Resolution Time
 - Most Recent Support Sentiment
-- 
+
 ---
 
 ## 1. Returning Customer Rate by Support Request Frequency (Column Chart)
