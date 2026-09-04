@@ -46,7 +46,7 @@ To explore the dashboard:
 3. Navigate between the dashboard pages using the worksheet tabs
 4. Explore the visuals and insights
 
-For the analytical SQL queries and their corresponding explanations, outputs, and dashboard results, see the [`SQL_Documentation`](./SQL_Documentation/) folder.
+For the analytical SQL queries and their corresponding explanations, outputs, and dashboard results, see the [`SQL__Documentation`](../SQL__Documentation/) folder.
 
 ---
 
