@@ -72,7 +72,7 @@ The image below illustrates several transformations applied during data preparat
 
 ![Data cleaning example](screenshots/data_cleaning.png)
 
-The cleaned data was stored in dedicated clean tables and used as the foundation for the subsequent SQL analysis and Excel dashboard development.
+The cleaned data was stored in dedicated 'clean' tables and used as the foundation for the subsequent SQL analysis and Excel dashboard development.
 
 ### Data Modeling
 
