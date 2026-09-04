@@ -1,6 +1,6 @@
 # Home Page Overview
 
-This analysis establishes the overall customer retention metrics and customer segments used throughout the Home dashboard.
+This analysis establishes the overall customer retention metrics and customer segments used throughout the Home page.
 
 The analysis uses a cutoff date of **December 1, 2025**:
 
