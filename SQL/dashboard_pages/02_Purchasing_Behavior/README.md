@@ -18,8 +18,7 @@ Each group is then compared with future purchasing activity to calculate the num
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS historical_orders
     FROM clean.orders
     WHERE order_date < '2025-12-01'
@@ -28,8 +27,7 @@ WITH historical_activity AS (
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -39,8 +37,7 @@ future_activity AS (
 ),
 
 customer_metrics AS (
-    SELECT
-        h.customer_id,
+    SELECT h.customer_id,
         h.historical_orders,
         CASE
             WHEN h.historical_orders BETWEEN 1 AND 2 THEN '1-2 Orders'
@@ -59,21 +56,15 @@ customer_metrics AS (
         ON h.customer_id = f.customer_id
 )
 
-SELECT
-    purchase_frequency_group,
+SELECT purchase_frequency_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
-GROUP BY
-    purchase_frequency_group,
+GROUP BY purchase_frequency_group,
     CASE purchase_frequency_group
         WHEN '1-2 Orders' THEN 1
         WHEN '3-4 Orders' THEN 2
@@ -109,8 +100,7 @@ Future purchasing activity is joined to these historical customer groups to meas
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         MAX(order_date) AS last_historical_order_date,
         DATE '2025-12-01' - MAX(order_date) AS days_since_last_order
     FROM clean.orders
@@ -120,8 +110,7 @@ WITH historical_activity AS (
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -131,8 +120,7 @@ future_activity AS (
 ),
 
 customer_metrics AS (
-    SELECT
-        h.customer_id,
+    SELECT h.customer_id,
         h.days_since_last_order,
         CASE
             WHEN h.days_since_last_order <= 30
@@ -155,21 +143,15 @@ customer_metrics AS (
         ON h.customer_id = f.customer_id
 )
 
-SELECT
-    recency_group,
+SELECT recency_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
-GROUP BY
-    recency_group,
+GROUP BY recency_group,
     CASE recency_group
         WHEN '0-30 Days' THEN 1
         WHEN '31-90 Days' THEN 2
@@ -210,8 +192,7 @@ This query calculates each customer's total order revenue during the historical 
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         SUM(order_amount) AS historical_revenue
     FROM clean.orders
     WHERE order_date < '2025-12-01'
@@ -220,8 +201,7 @@ WITH historical_activity AS (
 ),
 
 historical_with_quartiles AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         historical_revenue,
         NTILE(4) OVER (
             ORDER BY historical_revenue
@@ -230,8 +210,7 @@ historical_with_quartiles AS (
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -241,8 +220,7 @@ future_activity AS (
 ),
 
 customer_metrics AS (
-    SELECT
-        h.customer_id,
+    SELECT h.customer_id,
         h.historical_revenue,
         h.spending_quartile,
         CASE h.spending_quartile
@@ -261,24 +239,17 @@ customer_metrics AS (
         ON h.customer_id = f.customer_id
 )
 
-SELECT
-    historical_spending_group,
+SELECT historical_spending_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
-GROUP BY
-    spending_quartile,
+GROUP BY spending_quartile,
     historical_spending_group
-ORDER BY
-    spending_quartile;
+ORDER BY spending_quartile;
 ```
 
 ![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Total_Spending_query_output.png)
@@ -290,8 +261,7 @@ This query calculates each customer's average historical order value and divides
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         AVG(order_amount) AS historical_avg_order_value
     FROM clean.orders
     WHERE order_date < '2025-12-01'
@@ -300,18 +270,15 @@ WITH historical_activity AS (
 ),
 
 historical_with_quartiles AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         historical_avg_order_value,
-        NTILE(4) OVER (
-            ORDER BY historical_avg_order_value
-        ) AS aov_quartile
+        NTILE(4) OVER (ORDER BY historical_avg_order_value)
+            AS aov_quartile
     FROM historical_activity
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -321,8 +288,7 @@ future_activity AS (
 ),
 
 customer_metrics AS (
-    SELECT
-        h.customer_id,
+    SELECT h.customer_id,
         h.historical_avg_order_value,
         h.aov_quartile,
         CASE h.aov_quartile
@@ -341,24 +307,17 @@ customer_metrics AS (
         ON h.customer_id = f.customer_id
 )
 
-SELECT
-    historical_aov_group,
+SELECT historical_aov_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS future_repeat_purchase_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS future_repeat_purchase_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
-GROUP BY
-    aov_quartile,
+GROUP BY aov_quartile,
     historical_aov_group
-ORDER BY
-    aov_quartile;
+ORDER BY aov_quartile;
 ```
 
 ### Query Output
