@@ -93,8 +93,8 @@ The SQL analysis focused on four primary areas:
 
 - **Customer Segmentation and Retention:** Customers were segmented using historical order frequency and purchase recency, then evaluated against future purchasing behavior and customer value.
 - **Purchasing Behavior:** Historical order frequency, recency, total spending, and average order value were analyzed in relation to future repeat purchasing and revenue.
-- **Digital Engagement:** Page Views, Searches, Add to Cart, Logins, and overall digital engagement were analyzed in relation to future purchasing outcomes.
-- **Support Experience:** Support Request frequency, resolution time, and most recent historical support sentiment were analyzed in relation to future purchasing and customer value.
+- **Digital Engagement:** 'Page Views', 'Searches', 'Add to Cart', 'Logins', and overall digital engagement were analyzed in relation to future purchasing outcomes.
+- **Support Experience:** Support request frequency, resolution time, and most recent historical support sentiment were analyzed in relation to future purchasing and customer value.
 
 
 The resulting SQL outputs were imported into Excel using Power Query and used as the source data for the dashboard visualizations.
