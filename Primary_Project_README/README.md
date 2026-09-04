@@ -32,7 +32,7 @@ To explore the dashboard:
 3.	Navigate between the dashboard pages using the worksheet tabs 
 4.	Explore the visuals and insights
 
-Also, please see the directory titled `SQL_Documentation` for all the analytical queries used, and their respective explanations.
+Also, please see the folder titled `SQL_Documentation` for all the analytical queries used, and their respective explanations.
 
 ---
 
@@ -99,7 +99,7 @@ The SQL analysis focused on four primary areas:
 
 The resulting SQL outputs were imported into Excel using Power Query and used as the source data for the dashboard visualizations.
 
-Complete SQL queries and explanations of their respective purposes are available in the `SQL_Documentation` directory.
+Complete SQL queries and explanations of their respective purposes are available in the `SQL_Documentation` folder.
 
 ### Microsoft Excel Implementation
 
