@@ -27,7 +27,7 @@ A B2C company requires greater visibility into the behaviors and experiences tha
 This project is provided as an Excel workbook (.xlsx) and is intended to be viewed locally using Microsoft Excel.
 
 To explore the dashboard:
-1. [Download the Customer Retention Analysis workbook](../CustomerRetentionAnalysis.xlsx)
+1. [Download the workbook](../CustomerRetentionAnalysis.xlsx)
 2. Open the file using Microsoft Excel
 3. Navigate between the dashboard pages using the worksheet tabs
 4. Explore the visuals and insights
