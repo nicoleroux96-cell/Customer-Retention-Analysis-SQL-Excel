@@ -67,7 +67,7 @@ PostgreSQL was used to prepare the data for analysis by:
 - Identifying and handling null and missing values 
 - Validating customer, order, product, support, and clickstream records
 
-The example below illustrates several transformations applied during data preparation/cleaning, including the standardization of customer names and phone number formatting.
+The image below illustrates several transformations applied during data preparation/cleaning, including the standardization of customer names and phone number formatting.
 
 ![Data cleaning example](screenshots/data_cleaning.png)
 
@@ -79,7 +79,7 @@ Following data preparation, the cleaned tables were connected through shared cus
 
 The data structure is centered around the Customers table, with customer IDs linking customers to Orders, Clickstream, and Support Requests, while product IDs connect Orders to the Products table. 
 
-![Data Structure and Relationships](screenshots/00_Data_Structure.png)
+![Relationship diagram for the data tables](screenshots/ERD_tables.png)
 
 ### SQL Analysis 
 
