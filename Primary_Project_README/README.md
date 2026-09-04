@@ -36,11 +36,10 @@ To explore the dashboard:
 
 ## Dataset
 
-This project is based on an end-to-end data ecosystem of a real B2C company, consisting of five primary tables:
+This project is based on an end-to-end data ecosystem of a real B2C company, consisting of four primary tables:
 
 - Customers (customer ID, date of birth, signup date, contact information…) 
 - Orders (order ID, customer ID, order date, product ID, order amount…) 
-- Products (product ID, product name, category, price…) 
 - Support Requests (customer ID, request date, resolution time, sentiment…) 
 - Clickstream (customer ID, timestamp, event type…)
 
