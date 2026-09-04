@@ -188,7 +188,7 @@ The outputs of both queries are combined in Excel to compare their Returning Cus
 
 ### 3.1 Historical Spending
 
-This query calculates each customer's total order revenue during the historical period and ranks customers into four spending quartiles. It then measures future retention and revenue for each historical spending tier.
+This query calculates each customer's total order revenue during the historical period and ranks customers into four spending quartiles. It then measures future retention for each historical spending tier.
 
 ```sql
 WITH historical_activity AS (
