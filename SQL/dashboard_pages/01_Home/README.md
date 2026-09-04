@@ -119,7 +119,7 @@ ORDER BY
     historical_orders;
 ```
 
-### Query Output
+### Query Output (Partial)
 
 ![Resulting Output of the above SQL query](screenshots/Customer_Segments_by_Order_Frequency_and_Recency_query_output.png)
 
