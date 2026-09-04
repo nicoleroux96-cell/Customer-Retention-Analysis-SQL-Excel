@@ -10,7 +10,7 @@ The analysis considers four digital behaviors recorded in the clickstream data: 
 
 This query measures each customer's overall historical digital engagement by counting their clickstream events before the cutoff date. Customers are then grouped into four engagement levels based on their total number of digital interactions: **1–4 Events, 5–6 Events, 7–8 Events, and 9+ Events**.
 
-Each engagement group is compared with future purchasing activity to calculate the number of customers who returned after the cutoff and the resulting Returning Customer Rate.
+Each engagement group is compared with future purchasing activity to calculate the number of customers who returned after the cutoff and the resulting returning customer rate.
 
 ```sql
 WITH historical_customers AS (
@@ -98,7 +98,7 @@ ORDER BY
 
 This query evaluates the four digital behaviors individually. For each customer, it identifies whether **Page View, Search, Add to Cart, and Login** were performed at least once during the historical period.
 
-For each behavior, customers are separated into **Performed** and **Not Performed** groups. The query calculates the Returning Customer Rate for both groups and the difference between them in percentage points, allowing the retention association of each digital behavior to be compared.
+For each behavior, customers are separated into **Performed** and **Not Performed** groups. The query calculates the returning customer rate for both groups and the difference between them in percentage points, allowing the retention association of each digital behavior to be compared.
 
 ```sql
 WITH historical_customers AS (
