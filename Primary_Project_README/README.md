@@ -138,7 +138,7 @@ Analyzes how historical digital engagement relates to future customer retention 
 
 ### Support Experience Page
 
-Analyzes how historical customer support experiences relate to future retention and revenue. The dashboard evaluates Support Request frequency, average resolution time, and support sentiment against subsequent customer outcomes.
+Analyzes how historical customer support experiences relate to future retention and revenue. The dashboard evaluates support request frequency, average resolution time, and support sentiment against subsequent customer outcomes.
 
 ![Screenshot of the ‘Support Experience’ page](screenshots/Support_Experience.png)
 
