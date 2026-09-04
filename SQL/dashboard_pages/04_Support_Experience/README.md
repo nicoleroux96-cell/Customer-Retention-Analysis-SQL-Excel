@@ -103,7 +103,7 @@ ORDER BY
 
 This query calculates each customer's **average resolution time across their historical support requests** before the cutoff date. Customers are then grouped into four resolution-time ranges: **0–72 Hours, 73–120 Hours, 121–168 Hours, and 169+ Hours**.
 
-Future purchasing activity is joined to these customer groups to calculate both Returning Customer Rate and average future revenue. The average future revenue measure is used in the dashboard to compare future customer value across historical support resolution-time groups.
+Future purchasing activity is joined to these customer groups to calculate both returning customer rate and average future revenue. The average future revenue measure is used in the dashboard to compare future customer value across historical support resolution-time groups.
 
 ```sql
 WITH historical_customers AS (
@@ -194,7 +194,7 @@ ORDER BY
 
 This query evaluates future customer outcomes according to each customer's **most recent historical support sentiment**. Where a customer has multiple support requests before the cutoff, `ROW_NUMBER()` is used to identify the most recent request based on its creation date.
 
-Customers are then grouped by **Positive, Neutral, or Negative** support sentiment. For each group, the query calculates Returning Customer Rate and average future revenue per customer, allowing retention and future customer value to be evaluated together.
+Customers are then grouped by **Positive, Neutral, or Negative** support sentiment. For each group, the query calculates returning customer rate and average future revenue per customer, allowing retention and future customer value to be evaluated together.
 
 ```sql
 WITH historical_customers AS (
