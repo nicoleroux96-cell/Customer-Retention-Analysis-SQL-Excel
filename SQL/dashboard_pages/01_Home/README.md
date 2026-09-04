@@ -15,16 +15,14 @@ This query calculates the five headline customer retention metrics displayed in 
 
 ```sql
 WITH historical_customers AS (
-    SELECT DISTINCT
-        customer_id
+    SELECT DISTINCT customer_id
     FROM clean.orders
     WHERE order_date < '2025-12-01'
       AND customer_id IS NOT NULL
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -33,14 +31,11 @@ future_activity AS (
     GROUP BY customer_id
 )
 
-SELECT
-    COUNT(*) AS historical_customers_analyzed,
+SELECT COUNT(*) AS historical_customers_analyzed,
     COUNT(*) FILTER (
         WHERE COALESCE(f.future_orders, 0) > 0) AS no_of_returning_customers_after_cutoff_date
 ,
-    ROUND(100.0 *
-        COUNT(*) FILTER (
-            WHERE COALESCE(f.future_orders, 0) > 0) / COUNT(*), 2)
+    ROUND(100.0 * COUNT(*) FILTER (WHERE COALESCE(f.future_orders, 0) > 0) / COUNT(*), 2)
                 AS customer_return_rate,
     ROUND(AVG(COALESCE(f.future_revenue, 0)),2)
         AS avg_future_revenue_per_customer,
@@ -68,8 +63,7 @@ This query segments customers into four retention groups based on historical pur
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS historical_orders,
         DATE '2025-12-01' - MAX(order_date) AS days_since_last_order
     FROM clean.orders
@@ -79,8 +73,7 @@ WITH historical_activity AS (
 ),
 
 customer_segments AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         historical_orders,
         days_since_last_order,
         CASE
@@ -99,23 +92,20 @@ customer_segments AS (
 ),
 
 binned_customers AS (
-    SELECT
-        customer_segment,
+    SELECT customer_segment,
         historical_orders,
         (((days_since_last_order - 1) / 10) * 10 + 1) AS recency_bin_start
     FROM customer_segments
 )
 
-SELECT
-    customer_segment,
+SELECT customer_segment,
     recency_bin_start,
     recency_bin_start + 9 AS recency_bin_end,
     recency_bin_start + 4.5 AS recency_bin_midpoint,
     historical_orders,
     COUNT(*) AS customer_count
 FROM binned_customers
-GROUP BY
-    customer_segment,
+GROUP BY customer_segment,
     recency_bin_start,
     historical_orders
 ORDER BY
@@ -145,8 +135,7 @@ This query summarizes each customer segment and was used for both the above ment
 
 ```sql
 WITH historical_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS historical_orders,
         SUM(order_amount) AS historical_revenue,
         DATE '2025-12-01' - MAX(order_date) AS days_since_last_order
@@ -157,8 +146,7 @@ WITH historical_activity AS (
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders,
         SUM(order_amount) AS future_revenue
     FROM clean.orders
@@ -168,8 +156,7 @@ future_activity AS (
 ),
 
 customer_segments AS (
-    SELECT
-        h.customer_id,
+    SELECT h.customer_id,
         h.historical_orders,
         h.historical_revenue,
         h.days_since_last_order,
@@ -195,8 +182,7 @@ customer_segments AS (
         ON h.customer_id = f.customer_id
 )
 
-SELECT
-    customer_segment,
+SELECT customer_segment,
     COUNT(*) AS customers,
     ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS historical_customer_share,
     ROUND(
