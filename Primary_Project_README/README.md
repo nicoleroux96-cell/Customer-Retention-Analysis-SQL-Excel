@@ -121,31 +121,31 @@ Provides an overview of customer retention performance and customer segmentation
 
 As the primary landing page of the report, it summarizes the analysis framework, key retention metrics, and the four customer segments used in the analysis.
 
-![Home Dashboard](screenshots/01_Home.png)
+![Screenshot of the ‘Home’ page](screenshots/Home.png)
 
 ### Purchasing Behavior Page
 
 Analyzes how historical purchasing behavior relates to future customer retention. The dashboard evaluates customer return rates across purchase frequency, purchase recency, historical spending, and average order value.
 
-![Purchasing Behavior Dashboard](screenshots/02_Purchasing_Behavior.png)
+![Screenshot of the ‘Purchasing Behavior’ page](screenshots/Purchasing_Behavior.png)
 
 ### Digital Engagement Page
 
 Analyzes how historical digital engagement relates to future customer retention and revenue. The dashboard evaluates overall engagement levels and individual digital behaviors, including ‘Page Views’, ‘Searches’, ‘Add to Cart’, and ‘Logins’.
 
-![Digital Engagement Dashboard](screenshots/03_Digital_Engagement.png)
+![Screenshot of the ‘Digital Engagement’ page](screenshots/Digital_Engagement.png)
 
 ### Support Experience Page
 
 Analyzes how historical customer support experiences relate to future retention and revenue. The dashboard evaluates Support Request frequency, average resolution time, and support sentiment against subsequent customer outcomes.
 
-![Support Experience Dashboard](screenshots/04_Support_Experience.png)
+![Screenshot of the ‘Support Experience’ page](screenshots/Support_Experience.png)
 
 ### Insights and Recommendations Page
 
 Consolidates the analysis into an executive summary of the key findings, recommendations, and overall conclusion. The dashboard connects insights across customer segmentation, purchasing behavior, digital engagement, and support experience to the original business question.
 
-![Insights and Recommendations Dashboard](screenshots/05_Insights_and_Recommendations.png)
+![Screenshot of the ‘Insights and Recommendations’ page](screenshots/Insights_and_Recommendations.png)
 
 ---
 
