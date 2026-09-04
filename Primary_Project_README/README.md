@@ -67,10 +67,9 @@ PostgreSQL was used to prepare the data for analysis by:
 - Identifying and handling null and missing values 
 - Validating customer, order, product, support, and clickstream records
 
-The example below illustrates several transformations applied during data preparation, including the standardization of customer names and phone number formatting.
+The example below illustrates several transformations applied during data preparation/cleaning, including the standardization of customer names and phone number formatting.
 
-INSERT 2 SCREENSHOTS SHOWING BEFORE AND AFTER CLEANING
-(screenshots will be from the customers table)
+![Data cleaning example](screenshots/data_cleaning.png)
 
 The cleaned data was stored in dedicated clean tables and used as the foundation for the subsequent SQL analysis and Excel dashboard development.
 
