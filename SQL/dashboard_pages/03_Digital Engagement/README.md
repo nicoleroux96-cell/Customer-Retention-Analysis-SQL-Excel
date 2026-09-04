@@ -92,7 +92,7 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Digital Engagement Level_query_output.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Digital_Engagement_Level_query_output.png)
 
 ### Dashboard Result
 
