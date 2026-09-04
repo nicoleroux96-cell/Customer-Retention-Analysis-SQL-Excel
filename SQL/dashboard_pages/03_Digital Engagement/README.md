@@ -92,10 +92,11 @@ ORDER BY
 
 ### Query Output
 
-![Headline Retention KPIs Output](01_headline_kpis.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Digital Engagement Level_query_output)
 
 ### Dashboard Result
-INSERT SCREENSHOT of DIGITAL ENGAGE LINE CHART 
+
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Digital_Engagement_Level_dashboard_result)
 
 ---
 
@@ -229,10 +230,11 @@ ORDER BY behavior_order;
 
 ### Query Output
 
-![Customer Retention Segmentation Output](02_segmentation_bubble_chart.png)
+![Resulting Output of the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_query_output)
 
 ### Dashboard Result
-INSERT SCREENSHOT of digital engagement page bar chart 
+
+![Excel visual resulting from the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_dashboard_result)
 
 ---
 
@@ -378,7 +380,8 @@ ORDER BY behavior_order;
 
 ### Query Output
 
-![Customer Segment Summary Output](03_customer_segment_summary.png)
+![Resulting Output of the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_query_output)
 
 ### Dashboard Result
-INSERT SCREENSHOT of DIGITAL ENGAGE PAGE DUMBBELL CHART 
+
+![Excel visual resulting from the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_dashboard_result)
