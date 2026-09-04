@@ -225,7 +225,7 @@ ORDER BY
 
 ![Resulting Output of the above SQL query](screenshots/Customer_Segmentation_Breakdown_Table_query_output.png)
 
-### Dashboard Result
+### Dashboard Results
 
 ![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Segment_dashboard_result.png)
 
