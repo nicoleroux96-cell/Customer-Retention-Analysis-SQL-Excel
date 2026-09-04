@@ -92,11 +92,11 @@ ORDER BY
 
 ### Query Output
 
-![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Digital Engagement Level_query_output)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Digital Engagement Level_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Digital_Engagement_Level_dashboard_result)
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Digital_Engagement_Level_dashboard_result.png)
 
 ---
 
@@ -230,11 +230,11 @@ ORDER BY behavior_order;
 
 ### Query Output
 
-![Resulting Output of the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_query_output)
+![Resulting Output of the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_dashboard_result)
+![Excel visual resulting from the above SQL query](screenshots/Difference_in_Returning_Customer_Rate_by_Digital_Behavior_dashboard_result.png)
 
 ---
 
@@ -380,8 +380,8 @@ ORDER BY behavior_order;
 
 ### Query Output
 
-![Resulting Output of the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_query_output)
+![Resulting Output of the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_query_output.png)
 
 ### Dashboard Result
 
-![Excel visual resulting from the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_dashboard_result)
+![Excel visual resulting from the above SQL query](screenshots/Average_Future_Revenue_by_Digital_Behavior_dashboard_result.png)
