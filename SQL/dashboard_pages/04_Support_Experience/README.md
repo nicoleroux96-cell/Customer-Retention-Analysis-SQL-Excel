@@ -14,7 +14,7 @@ The analysis focuses on three aspects of the historical support experience:
 
 This query counts the number of support requests associated with each historical customer before the cutoff date and groups customers into four frequency levels: **0, 1, 2, and 3+ Support Requests**.
 
-Each group is then compared with future purchasing activity to calculate the number of customers who returned after the cutoff, the resulting Returning Customer Rate, and average future revenue per customer.
+Each group is then compared with future purchasing activity to calculate the number of customers who returned after the cutoff and the resulting returning customer rate.
 
 ```sql
 WITH historical_customers AS (
