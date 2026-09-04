@@ -4,7 +4,7 @@ A PostgreSQL and Microsoft Excel analysis of customer purchasing behavior, digit
 
 ## Project Overview
 
-This project demonstrates an end-to-end customer retention analysis using PostgreSQL, Power Query, and Microsoft Excel. The analysis combines customer, order, product, digital engagement, and customer support data to evaluate how historical customer behaviors and experiences are associated with future repeat purchasing and customer value.
+This project demonstrates an end-to-end customer retention analysis using PostgreSQL, Power Query, and Microsoft Excel. The analysis combines customer, order, digital engagement, and customer support data to evaluate how historical customer behaviors and experiences are associated with future repeat purchasing and customer value.
 
 PostgreSQL was used to clean and transform the raw data, develop customer-level metrics, and perform the primary analytical queries. The resulting SQL outputs were imported into Excel using Power Query and used to develop a multi-page dashboard.
 
