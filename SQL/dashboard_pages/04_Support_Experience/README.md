@@ -95,10 +95,11 @@ ORDER BY
 
 ### Query Output
 
-![Headline Retention KPIs Output](01_headline_kpis.png)
+![Resulting Output of the above SQL query](screenshots/Returning_Customer_Rate_by_Support_Request_Frequency_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of support exp column CHART 
+
+![Excel visual resulting from the above SQL query](screenshots/Returning_Customer_Rate_by_Support_Request_Frequency_dashboard_result.png)
 
 ---
 
@@ -189,10 +190,11 @@ ORDER BY
 
 ### Query Output
 
-![Customer Retention Segmentation Output](02_segmentation_bubble_chart.png)
+![Resulting Output of the above SQL query](screenshots/Average_Future_Revenue_by_Average_Support_Resolution_Time_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of SUPPORT EXP line chart 
+
+![Excel visual resulting from the above SQL query](screenshots/Average_Future_Revenue_by_Average_Support_Resolution_Time_dashboard_result.png)
 
 ---
 
@@ -278,7 +280,8 @@ ORDER BY
 
 ### Query Output
 
-![Customer Segment Summary Output](03_customer_segment_summary.png)
+![Resulting Output of the above SQL query](screenshots/Avg_Future_Revenue_by_Support_Sentiment_query_output.png)
 
 ### Dashboard Result
-INSERT SCREENSHOT of SUPPORT EXP bar chart
+
+![Excel visual resulting from the above SQL query](screenshots/Avg_Future_Revenue_by_Support_Sentiment_dashboard_result.png)
