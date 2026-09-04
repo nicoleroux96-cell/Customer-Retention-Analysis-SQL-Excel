@@ -14,16 +14,14 @@ Each engagement group is compared with future purchasing activity to calculate t
 
 ```sql
 WITH historical_customers AS (
-    SELECT DISTINCT
-        customer_id
+    SELECT DISTINCT customer_id
     FROM clean.orders
     WHERE order_date < '2025-12-01'
       AND customer_id IS NOT NULL
 ),
 
 historical_engagement AS (
-    SELECT
-        c.customer_id,
+    SELECT c.customer_id,
         COUNT(*) AS historical_events
     FROM clean.clickstream c
     INNER JOIN historical_customers h
@@ -33,8 +31,7 @@ historical_engagement AS (
 ),
 
 future_activity AS (
-    SELECT
-        customer_id,
+    SELECT customer_id,
         COUNT(*) AS future_orders
     FROM clean.orders
     WHERE order_date >= '2025-12-01'
@@ -68,13 +65,10 @@ SELECT
     engagement_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate
 FROM customer_metrics
-GROUP BY
-    engagement_group,
+GROUP BY engagement_group,
     CASE engagement_group
         WHEN '1-4 Events' THEN 1
         WHEN '5-6 Events' THEN 2
