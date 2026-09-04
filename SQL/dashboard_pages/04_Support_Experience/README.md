@@ -196,7 +196,7 @@ INSERT SCREENSHOT of SUPPORT EXP line chart
 
 ---
 
-## 3. Avg Future Revenue by Support Sentiment (Bar Chart)
+## 3. Average Future Revenue by Support Sentiment (Bar Chart)
 
 This query evaluates future customer outcomes according to each customer's **most recent historical support sentiment**. Where a customer has multiple support requests before the cutoff, `ROW_NUMBER()` is used to identify the most recent request based on its creation date.
 
