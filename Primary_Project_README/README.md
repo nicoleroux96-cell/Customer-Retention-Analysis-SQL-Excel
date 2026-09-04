@@ -32,7 +32,7 @@ To explore the dashboard:
 3.	Navigate between the dashboard pages using the worksheet tabs 
 4.	Explore the visuals and insights
 
-Also, please see the directory titled `SQL_Documentation` for all the analytical queries used, and their explanations.
+Also, please see the directory titled `SQL_Documentation` for all the analytical queries used, and their respective explanations.
 
 ---
 
