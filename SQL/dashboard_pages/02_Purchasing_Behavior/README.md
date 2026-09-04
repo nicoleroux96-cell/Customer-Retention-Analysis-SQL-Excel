@@ -257,7 +257,7 @@ ORDER BY spending_quartile;
 
 ### 3.2 Historical Average Order Value
 
-This query calculates each customer's average historical order value and divides customers into four AOV quartiles. Future purchasing activity is then used to measure the Returning Customer Rate and average future revenue associated with each AOV tier.
+This query calculates each customer's average historical order value and divides customers into four AOV quartiles. Future purchasing activity is then used to measure the returning customer rate associated with each AOV tier.
 
 ```sql
 WITH historical_activity AS (
