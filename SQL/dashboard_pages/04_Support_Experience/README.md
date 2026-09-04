@@ -68,14 +68,10 @@ customer_metrics AS (
 SELECT support_frequency_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
 GROUP BY support_frequency_group,
     CASE support_frequency_group
@@ -163,14 +159,10 @@ customer_metrics AS (
 SELECT resolution_time_group,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
 GROUP BY resolution_time_group,
     CASE resolution_time_group
@@ -260,14 +252,10 @@ customer_metrics AS (
 SELECT sentiment AS most_recent_support_sentiment,
     COUNT(*) AS historical_customers,
     SUM(future_repeat_customer) AS future_repeat_customers,
-    ROUND(
-        100.0 * SUM(future_repeat_customer) / COUNT(*),
-        2
-    ) AS returning_customer_rate,
-    ROUND(
-        AVG(future_revenue),
-        2
-    ) AS avg_future_revenue_per_customer
+    ROUND(100.0 * SUM(future_repeat_customer) / COUNT(*), 2)
+        AS returning_customer_rate,
+    ROUND(AVG(future_revenue), 2)
+        AS avg_future_revenue_per_customer
 FROM customer_metrics
 GROUP BY sentiment
 ORDER BY
