@@ -55,7 +55,7 @@ Building upon the original dataset, I independently cleaned and transformed the 
 
 ### Data Preparation and Cleaning
 
-The original dataset was provided as five CSV files (Customers, Orders, Products, Support Requests, and Clickstream). This raw data was then imported into PostgreSQL for cleaning.
+The original dataset was provided as four CSV files (Customers, Products, Support Requests, and Clickstream). This raw data was then imported into PostgreSQL for cleaning.
 
 PostgreSQL was used to prepare the data for analysis by:
 - Removing duplicate customer records 
@@ -74,9 +74,9 @@ The cleaned data was stored in dedicated clean tables and used as the foundation
 
 ### Data Modeling
 
-Following data preparation, the cleaned tables were connected through shared customer and product identifiers to support analysis across purchasing behavior, digital engagement, and customer support activity.
+Following data preparation, the cleaned tables were connected through shared customer identifiers to support analysis across purchasing behavior, digital engagement, and customer support activity.
 
-The data structure is centered around the Customers table, with customer IDs linking customers to Orders, Clickstream, and Support Requests, while product IDs connect Orders to the Products table. 
+The data structure is centered around the Customers table, with customer IDs linking customers to Orders, Clickstream, and Support Requests.
 
 ![Relationship diagram for the data tables](screenshots/ERD_tables.png)
 
@@ -97,7 +97,7 @@ The SQL analysis focused on four primary areas:
 
 The resulting SQL outputs were imported into Excel using Power Query and used as the source data for the dashboard visualizations.
 
-Complete SQL queries are available in the `SQL` directory.
+Complete SQL queries and their purposes are available in the `SQL_Documentation` directory.
 
 ### Microsoft Excel Implementation
 
