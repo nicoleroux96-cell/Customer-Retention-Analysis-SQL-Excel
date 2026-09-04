@@ -184,7 +184,7 @@ The final Purchasing Behavior visual compares retention across two measures of h
 
 Because the two measures are calculated independently, separate SQL queries were used. In both analyses, customers are divided into four equally sized groups using `NTILE(4)`, producing **Low, Medium, High, and Very High** value tiers. Future purchasing behavior is then evaluated for each tier.
 
-The outputs of both queries are combined in Excel to compare their Returning Customer Rates within a single dashboard visual.
+The outputs of both queries are combined in Excel to compare their returning customer rates within a single dashboard visual.
 
 ### 3.1 Historical Spending
 
