@@ -1,6 +1,6 @@
 # Customer Retention Analysis
 
-A PostgreSQL and Microsoft Excel analysis of customer purchasing behavior, digital engagement, and support experiences to identify indicators of future repeat purchasing and customer value.
+An end-to-end PostgreSQL and Microsoft Excel analysis of customer purchasing behavior, digital engagement, and support experiences to identify indicators of future repeat purchasing and customer value.
 
 ## Project Overview
 
