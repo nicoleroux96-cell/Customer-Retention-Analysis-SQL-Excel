@@ -96,7 +96,7 @@ ORDER BY
 
 This query measures customer recency as the number of days between each customer's most recent historical order and the cutoff date. Customers are then grouped into five recency ranges from **0–30 Days** to **366+ Days**.
 
-Future purchasing activity is joined to these historical customer groups to measure how Returning Customer Rate and average future revenue vary as the time since a customer's last purchase increases.
+Future purchasing activity is joined to these historical customer groups to measure how the returning customer rate varies as the time since a customer's last purchase increases.
 
 ```sql
 WITH historical_activity AS (
