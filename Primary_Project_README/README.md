@@ -99,7 +99,7 @@ The SQL analysis focused on four primary areas:
 
 The resulting SQL outputs were imported into Excel using Power Query and used as the source data for the dashboard visualizations.
 
-Complete SQL queries and their purposes are available/explained in the `SQL_Documentation` directory.
+Complete SQL queries and explanations of their respective purposes are available in the `SQL_Documentation` directory.
 
 ### Microsoft Excel Implementation
 
