@@ -78,7 +78,7 @@ The cleaned data was stored in dedicated 'clean' tables and used as the foundati
 
 Following data preparation, the cleaned tables were connected through shared customer identifiers to support analysis across purchasing behavior, digital engagement, and customer support activity.
 
-The data structure is centered around the Customers table, with customer IDs linking customers to Orders, Clickstream, and Support Requests.
+The data structure is centered around the customers table, with customer IDs linking customers to orders, clickstream, and support requests.
 
 ![Relationship diagram for the data tables](screenshots/ERD_tables.png)
 
